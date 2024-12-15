@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css"/>
+    <title>Login</title>
+</head>
+<body>
+    <main class="main-content">
+        <div class="container-title">
+            <h1>LiquidApp</h1>
+            <h2>Iniciar sesión</h2>
+        </div>
+        <form id="container-form">
+            <label class="text email" for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="Email" required/>
+
+            <label class="text password" for="password">Contraseña</label>
+            <input type="password" id="password" name="password" placeholder="Contraseña" required/>
+
+            <button class="btn acceder" type="submit">Ingresar</button>
+            <button class="btn register" onclick="window.location.href='register.html';">Registrarse</button>
+
+        </form>
+        <div id="message"></div>
+    </main>
+    <script src="./js/login.js"></script>
+</body>
+</html>
