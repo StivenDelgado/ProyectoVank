@@ -16,7 +16,7 @@
       </div>
       <ul class="menu">
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="ia.html">IA</a></li>
+        <li><a href="ia.html">FinanceBot</a></li>
         <li><a href="deudas.html">Deudas</a></li>
         <li><a href="#">Pagos</a></li>
         <li><a href="#">Extractos</a></li>
@@ -26,21 +26,19 @@
     <!-- Sección del Chat -->
     <main class="chat-container">
       <header class="chat-header">
-        <h2>IA</h2>
+        <h2>FinanceBot</h2>
       </header>
       <div class="chat-box">
         <div class="message bot-message">
-          <p>Hola, ¿en qué puedo ayudarte hoy?</p>
-        </div>
-        <div class="message user-message">
-          <p>Quiero organizar mis deudas personales.</p>
+          <p>¡Hola! Soy tu asistente financiero personal. 😊 ¿En qué puedo ayudarte hoy?</p>
         </div>
       </div>
       <div class="chat-input">
         <input type="text" placeholder="Escribe un mensaje..." />
-        <button>Enviar</button>
+        <button onclick="chatBot.handleSubmit()">Enviar</button>
       </div>
     </main>
   </div>
+  <script src="js/ia.js"></script>
 </body>
 </html>

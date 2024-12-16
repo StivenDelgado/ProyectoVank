@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-decoration: none;
     list-style: none;
   }
@@ -28,14 +28,13 @@
   /* Menú lateral */
   .sidebar {
     width: 20%;
-    background-color: #1e1e1e;
+    background-color: #ffdd00;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 2rem;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    border-right: #ffdd00 solid 1px;
   }
   
   /* Encabezado del menú */
@@ -51,13 +50,13 @@
   }
   
   .logo .vank {
-    color: #ffdd00;
+    color: #000;
   }
   
   .logo .versity {
     font-family: Arial, sans-serif;
     font-weight: lighter;
-    color: #fff;
+    color: #000;
   }
   
   /* Menú de navegación */
@@ -72,15 +71,15 @@
   
   .menu a {
     font-size: 1rem;
-    color: #fff;
+    color: #000;
     padding: 0.5rem;
     display: block;
     transition: color 0.3s ease, background-color 0.3s ease;
   }
   
   .menu a:hover {
-    color: #000;
-    background-color: #ffdd00;
+    color: #fff;
+    background-color: #1e1e1e;
     border-radius: 5px;
   }
   
