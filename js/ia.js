@@ -10,25 +10,49 @@ class ChatBot {
                 this.handleSubmit();
             }
         });
+                // persistencia de mensajes
+        let mensajes = JSON.parse(localStorage.getItem('usuarios')).find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email).mensajes;
+        mensajes.forEach(mensaje => {
+            this.chatBox.appendChild(this.createMessage(mensaje.mensaje, mensaje.rol === 'bot' ? 'bot-message' : 'user-message'));
+        });
     }
 
     async handleSubmit() {
-        const message = this.chatInput.querySelector('input').value;
+        const messageUser = this.chatInput.querySelector('input').value;
         this.chatInput.querySelector('input').value = '';
 
-        if (message) {
-            this.messageUser.textContent = message;
-            this.chatBox.appendChild(this.createMessage(message, 'user'));
+        if (messageUser) {
+            this.chatBox.appendChild(this.createMessage(messageUser, 'user-message'));
         }
-        let respuesta = await this.chatBot(message)
-            this.messageBot.textContent = respuesta;
-            this.chatBox.appendChild(this.createMessage(respuesta, 'bot'));
+        let messageIA = await this.chatBot(messageUser)
+            this.chatBox.appendChild(this.createMessage(messageIA, 'bot-message')); 
+
+        let users = JSON.parse(localStorage.getItem('usuarios'));
+        let user = users.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email);
+        
+        let messageIAObj = {
+          rol: 'bot',
+          mensaje: messageIA
+        }
+        let messageUserObj = {
+          rol: 'usuario',
+          mensaje: messageUser
+        }
+
+        user['mensajes'] = user['mensajes'] || [];
+        user['mensajes'].push(messageUserObj);
+        user['mensajes'].push(messageIAObj);
+
+        let index = users.findIndex(e => e.email === user.email);
+        users[index] = user;
+        localStorage.setItem('usuarios', JSON.stringify(users));
     }
 
-    createMessage(type) {
+    createMessage(message,type) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('message');
         messageElement.classList.add(type);
+        messageElement.innerHTML = message;
 
         return messageElement;
     }
