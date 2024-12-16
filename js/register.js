@@ -19,6 +19,10 @@ class Register {
         alert("Registro exitoso");
         if (localStorage.getItem("usuarios")) {
             const usuarios = JSON.parse(localStorage.getItem("usuarios"));
+            if (usuarios.find(usuario => usuario.email === usuario.email)) {
+                alert("El usuario ya existe");
+                return;
+            }
             usuarios.push(usuario);
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         }else{
