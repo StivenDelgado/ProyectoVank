@@ -103,10 +103,11 @@
   .chat-box {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 1rem 0;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    overflow-y: auto;
   }
   
   /* Mensajes */
@@ -159,3 +160,24 @@
   .chat-input button:hover {
     background-color: #ffc400;
   }
+
+
+.chat-box::-webkit-scrollbar {
+  width: 8px; /* Ancho del scrollbar */
+}
+
+.chat-box::-webkit-scrollbar-track {
+  background: #333; /* Color del fondo del scrollbar */
+  border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+  background-color: #ffd700; /* Color del scroll (amarillo) */
+  border-radius: 10px;
+  border: 2px solid #333; /* Borde del scroll */
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+  background-color: #ffa500; /* Cambio de color al pasar el mouse */
+}
+

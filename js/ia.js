@@ -4,17 +4,24 @@ class ChatBot {
         this.chatInput = document.querySelector('.chat-input');
         this.messageUser = document.querySelector('.user-message');
         this.messageBot = document.querySelector('.bot-message');
+        //comprobar si el usuario esta logeado
+        if(!localStorage.getItem('usuarioLogueado')){
+            alert('Debes estar logeado para poder chatear con el bot');
+            window.location.href = 'login.html';
+        }
+
         //Enter en el teclado
         this.chatInput.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                 this.handleSubmit();
             }
         });
-                // persistencia de mensajes
-        let mensajes = JSON.parse(localStorage.getItem('usuarios')).find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email).mensajes;
+        // persistencia de mensajes
+        let mensajes = JSON.parse(localStorage.getItem('usuarios'))?.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email).mensajes;
         mensajes.forEach(mensaje => {
             this.chatBox.appendChild(this.createMessage(mensaje.mensaje, mensaje.rol === 'bot' ? 'bot-message' : 'user-message'));
         });
+        this.scrollToBottom()
     }
 
     async handleSubmit() {
@@ -46,6 +53,7 @@ class ChatBot {
         let index = users.findIndex(e => e.email === user.email);
         users[index] = user;
         localStorage.setItem('usuarios', JSON.stringify(users));
+        this.scrollToBottom()
     }
 
     createMessage(message,type) {
@@ -82,14 +90,17 @@ class ChatBot {
         })
         .then(datos => {
           const textoGenerado = datos.candidates[0].content.parts[0].text;
-          
-          console.log(textoGenerado);
           return textoGenerado;
         })
         .catch(error => {
           console.error('Error al llamar a la API de Gemini:', error);
         });
       }
+
+    scrollToBottom() {
+        const chatContainer = document.querySelector('.chat-box');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
 }
 
 const chatBot = new ChatBot();

@@ -1,4 +1,4 @@
-class User{
+class Login{
     /**
      * Método que verifica si las credenciales coinciden con un usuario existente.
      */
@@ -24,12 +24,12 @@ class User{
     /**
      * Método que elimina el usuario del localStorage para simular cerrar sesión.
      */
-    static cerrarSesion(){
+     cerrarSesion(){
         localStorage.removeItem('usuarioLogueado');
     }
 }
 
-const user = new User();
+const login = new Login();
 
 const loginForm = document.getElementById('container-form');
 const messageDiv = document.getElementById('message');
@@ -42,7 +42,7 @@ loginForm.addEventListener('submit', function(event){
     const password = document.getElementById('password').value.trim();
 
     // Iniciar sesión
-    if(user.login(email,password)){
+    if(login.login(email,password)){
         messageDiv.textContent = `Bienvenido ${email}`;
         messageDiv.style.color = 'green';
 
