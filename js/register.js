@@ -1,7 +1,7 @@
 class Register {
     constructor() {
         this.form = document.querySelector("form");
-        this.form.addEventListener("submit", this.submitHandler.bind(this));
+        this.form.addEventListener("submit", this.submitHandler.bind(this))
     }
 
     submitHandler(event) {
@@ -16,7 +16,7 @@ class Register {
             alert("La contraseña debe tener al menos 8 caracteres");
             return;
         }
-        alert("Registro exitoso");
+        
         if (localStorage.getItem("usuarios")) {
             const usuarios = JSON.parse(localStorage.getItem("usuarios"));
             if (usuarios.find(user => user.email === usuario.email)) {
@@ -29,7 +29,7 @@ class Register {
             const usuarios = [usuario];
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         }
-
+        alert("Registro exitoso");
         window.location.href = "login.html";
     }
 }

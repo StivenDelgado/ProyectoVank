@@ -4,6 +4,10 @@ class ChatBot {
         this.chatInput = document.querySelector('.chat-input');
         this.messageUser = document.querySelector('.user-message');
         this.messageBot = document.querySelector('.bot-message');
+        this.users = JSON.parse(localStorage.getItem('usuarios'));
+        this.user = this.users.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email);
+        this.bolsillos = this.user.bolsillos;
+        
         //comprobar si el usuario esta logeado
         if(!localStorage.getItem('usuarioLogueado')){
             alert('Debes estar logeado para poder chatear con el bot');
@@ -33,10 +37,6 @@ class ChatBot {
         }
         let messageIA = await this.chatBot(messageUser)
             this.chatBox.appendChild(this.createMessage(messageIA, 'bot-message')); 
-
-        let users = JSON.parse(localStorage.getItem('usuarios'));
-        let user = users.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email);
-        
         let messageIAObj = {
           rol: 'bot',
           mensaje: messageIA
@@ -46,13 +46,13 @@ class ChatBot {
           mensaje: messageUser
         }
 
-        user['mensajes'] = user['mensajes'] || [];
-        user['mensajes'].push(messageUserObj);
-        user['mensajes'].push(messageIAObj);
+        this.user['mensajes'] = this.user['mensajes'] || [];
+        this.user['mensajes'].push(messageUserObj);
+        this.user['mensajes'].push(messageIAObj);
 
-        let index = users.findIndex(e => e.email === user.email);
-        users[index] = user;
-        localStorage.setItem('usuarios', JSON.stringify(users));
+        let index = this.users.findIndex(e => e.email === this.user.email);
+        this.users[index] = this.user;
+        localStorage.setItem('usuarios', JSON.stringify(this.users));
         this.scrollToBottom()
     }
 
@@ -77,7 +77,7 @@ class ChatBot {
           body: JSON.stringify({
             contents: [{
               parts: [
-                { text: prompt }
+                { text: `${prompt}` }
               ]
             }]
           })
