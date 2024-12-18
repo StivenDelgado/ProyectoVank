@@ -1,0 +1,118 @@
+/* Contenedor general */
+.container {
+    display: flex;
+    height: 72vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Menú lateral */
+.sidebar {
+    width: 280px;
+    background-color: #121212;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.menu-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #ffd700;
+    text-align: center;
+}
+
+.pocket-list {
+    list-style: none;
+    padding: 0;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.pocket-list li {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pocket-list li:hover {
+    background-color: #ffd700;
+    color: #000;
+    font-weight: bold;
+}
+
+#add-pocket-btn {
+    padding: 10px;
+    background-color: #ffd700;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+#add-pocket-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Contenedor principal */
+.main-content {
+    flex: 1;
+    background-color: #1e1e1e;
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.pocket-details {
+    margin-top: 20px;
+    text-align: left;
+    max-width: 500px;
+    margin: auto;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #3a3a3a;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(to right, #ffd700, #ffb700);
+    transition: width 0.5s ease-in-out;
+}
+
+button {
+    padding: 10px 16px;
+    margin-top: 10px;
+    background-color: #ffd700;
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: #ffb700;
+    transform: scale(1.05);
+}
+
+/* Ocultar elementos */
+.hidden {
+    display: none;
+}
