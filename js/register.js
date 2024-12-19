@@ -8,6 +8,7 @@ class Register {
         event.preventDefault();
         const objeto = new FormData(this.form);
         const usuario = Object.fromEntries(objeto.entries());
+        
         if (usuario.password !== usuario.confirmar) {
             alert("Las contraseñas no coinciden");
             return;
@@ -25,13 +26,18 @@ class Register {
             }
             usuarios.push(usuario);
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
+            localStorage.setItem("username", usuario.nombre);
+
         }else{
             const usuarios = [usuario];
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         }
 
-        window.location.href = "login.html";
+        
+        indow.location.href = "login.html";
     }
+
+            
 }
 
 const register = new Register();

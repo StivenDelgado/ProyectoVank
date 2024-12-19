@@ -1,2 +1,112 @@
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    color: #ffffff;
+}
+
+main section, main article {
+    margin-bottom: 20px;
+}
+
+.galeria-tarjetas{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.card-item{
+    color: #ffffff;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card-item .vank{
+    object-fit: cover;
+    color: #ffffff;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card-item:hover{
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px #f6ff004f;
+}
+
+.card-item img{
+    width: 100%;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.card-item:hover img {
+    opacity: 0.9;
+}
+
+.card-item .text-container h3{
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    background: #0000006a;
+    border-radius: 8px;
+    color: #ffffff;
+}
+.text-container p{
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+.container-title{
+    display: flex;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+.container-parrafo{
+    flex: 1;
+    max-width: 400px;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.container-video{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+}
+
+.container-video video {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.text-container h3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.content-galeria{
+    display: grid;
+    grid-template: 500px 500px / 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
 
 
