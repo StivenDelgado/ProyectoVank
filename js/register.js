@@ -30,7 +30,6 @@ class Register {
             const usuarios = [usuario];
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         }
-
         alert("Registro exitoso");
         window.location.href = "login.html";
     }
