@@ -1,7 +1,8 @@
 class Register {
     constructor() {
         this.form = document.querySelector("form");
-        this.form.addEventListener("submit", this.submitHandler.bind(this))
+        this.form.addEventListener("submit", this.submitHandler.bind(this));
+        this.usuarios = JSON.parse(localStorage.getItem("usuarios"));
     }
 
     submitHandler(event) {
@@ -19,7 +20,7 @@ class Register {
         
         if (localStorage.getItem("usuarios")) {
             const usuarios = JSON.parse(localStorage.getItem("usuarios"));
-            if (usuarios.find(user => user.email === usuario.email)) {
+            if (usuarios.find(u => u.email === usuario.email)) {
                 alert("El usuario ya existe");
                 return;
             }
