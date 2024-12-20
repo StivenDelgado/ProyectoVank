@@ -26,6 +26,9 @@ body{
 }
 .container-title{
     margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     color: #ffffff;
     padding: 1rem 3rem;
     
