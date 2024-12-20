@@ -1,0 +1,51 @@
+#movimientos {
+    padding: 20px;
+    color: white;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.movimientos-dia {
+    margin-bottom: 20px;
+}
+
+.movimientos-dia h3 {
+    background-color: #f1c40f;
+    padding: 10px;
+    margin: 0;
+    font-size: 18px;
+    color: #000;
+}
+
+.movimiento {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #2d2f2e;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.movimiento-descripcion {
+    font-size: 16px;
+    color: white;
+}
+
+.movimiento-monto {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.movimiento-monto.negativo {
+    color: red;
+}
+
+.movimiento-monto.positivo {
+    color: #2ecc71;
+}
