@@ -5,7 +5,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-header{
+header{ 
     background-color: #ffdd00;
     color: white;
     padding: 1em;
@@ -33,6 +33,7 @@ header{
 nav{
     width: 60%;
     margin: auto;
+
 }
 nav ul{
     list-style: none;
@@ -85,7 +86,6 @@ footer{
     background-color: #ffdd00;
     text-align: center;
     padding: 1em;
-    position: fixed;
     bottom: 0;
     width: 100%;
 }

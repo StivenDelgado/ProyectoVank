@@ -9,6 +9,7 @@ class Login{
         //Si los datos coinciden guarda el usuario en localStorage.
         if(user){
             localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+            localStorage.setItem("username", user.nombre); //Guarda el nombre para el saludo
             return true;
         }
         return false;
@@ -26,6 +27,7 @@ class Login{
      */
      cerrarSesion(){
         localStorage.removeItem('usuarioLogueado');
+        localStorage.removeItem('username');
     }
 }
 
