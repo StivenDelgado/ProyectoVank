@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vank</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/movimientos.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -27,12 +27,42 @@
     </header>
 
     <main id="app">
-    
+        <div id="movimientos" class="hidden">
+            <h2>Movimientos</h2>
+            <input type="text" id="search-bar" placeholder="Busca" />
+        
+            <div id="movimientos-container">
+                <!-- Ejemplo de una sección de movimientos -->
+                <div class="movimientos-dia">
+                    <h3>Sábado</h3>
+                    <div class="movimiento">
+                        <span class="movimiento-descripcion">Daniela Buitrago Guti...</span>
+                        <span class="movimiento-monto negativo">-$20,000.00</span>
+                    </div>
+                    <div class="movimiento">
+                        <span class="movimiento-descripcion">Daniela Buitrago Guti...</span>
+                        <span class="movimiento-monto positivo">$20,000.00</span>
+                    </div>
+                </div>
+                <div class="movimientos-dia">
+                    <h3>7 de Diciembre de 2024</h3>
+                    <div class="movimiento">
+                        <span class="movimiento-descripcion">Manuel Fernando Buit...</span>
+                        <span class="movimiento-monto negativo">-$11,000.00</span>
+                    </div>
+                    <div class="movimiento">
+                        <span class="movimiento-descripcion">Manuel Fernando Buit...</span>
+                        <span class="movimiento-monto positivo">$11,000.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </main>
 
     <footer>
         <p>Vank Finanzas 2024</p>
     </footer>
-    <script src="js/index.js"></script>
+    <script src="js/movimientos.js"></script>
 </body>
 </html>
