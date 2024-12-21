@@ -13,8 +13,7 @@
 
     <header>
         <section class="titulo">
-            <img src="img/vankLogo.jpeg" alt="Logo de vank">
-            <h1>Finanzas</h1>
+            <h1>Liquid</h1>
         </section>
 
         <nav>
@@ -52,6 +51,26 @@
                     <p id="pocket-amount">Progreso: $0 / $0</p>
                     <button id="add-amount-btn">💵 Agregar Monto</button>
                     <button id="remove-amount-btn">Quitar Monto</button>
+                    <div id="card-section">
+                        <button id="add-card-btn">Agregar Tarjeta</button>
+                        <div id="card-form-container" class="hidden">
+                            <form id="card-form">
+                                <h3>Agregar Tarjeta</h3>
+                                <label for="card-name">Nombre del titular:</label>
+                                <input type="text" id="card-name" required />
+                                <label for="card-number">Número de la tarjeta:</label>
+                                <input type="text" id="card-number" maxlength="16" required />
+                                <label for="card-type">Tipo de tarjeta:</label>
+                                <select id="card-type">
+                                    <option value="debito">Débito</option>
+                                    <option value="credito">Crédito</option>
+                                </select>
+                                <button type="submit">Guardar Tarjeta</button>
+                            </form>
+                        </div>
+                        <ul id="card-list"></ul>
+                    </div>
+                    
 
                 </div>
         
