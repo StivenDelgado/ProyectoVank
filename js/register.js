@@ -34,8 +34,7 @@ class Register {
             localStorage.setItem("usuarios", JSON.stringify(usuarios));
         }
         alert("Registro exitoso");
-        
-        indow.location.href = "login.html";
+        window.location.href = "login.html";
     }
 
             

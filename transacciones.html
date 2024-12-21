@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vank</title>
+    <link rel="stylesheet" href="css/transacciones.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <section class="titulo">
+            <img src="img/vankLogo.jpeg" alt="Logo de vank">
+            <h1>Finanzas</h1>
+        </section>
+    
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="ia.html">FinanceBot</a></li>
+                <li><a href="deudas.html">Deudas</a></li>
+                <li><a href="transacciones.html">Transacciones</a></li>
+                <li><a href="#">Extractos</a></li>
+                <li><a href="login.html" onclick="login.cerrarSesion()">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <main class="container-app">
+        <section id="enviar-transaccion">
+            <h2>Realizar Transacción</h2>
+            <form id="enviar-form">
+                <label for="cuenta">N° de cuenta:</label>
+                <input type="text" id="cuenta" name="cuenta" required>
+
+                <label for="monto">Monto:</label>
+                <input type="monto" id="monto" name="monto" required>
+
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Descripción del envío" rows="4"></textarea>
+
+                <div class="botones">
+                    <button type="submit">Enviar</button>
+                    <button type="button" id="cancelar">Cancelar</button>
+                </div>
+
+            </form>
+            <div id="message"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Vank Finanzas 2024</p>
+    </footer>
+    <script src="js/transacciones.js"></script>
+</body>
+</html>
