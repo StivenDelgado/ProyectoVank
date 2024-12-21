@@ -55,7 +55,9 @@ a {
     transition: color 0.3s ease, background-color 0.3s ease;
     text-decoration: none;
 }
-
+nav ul li.logout a {
+    color: red; /* Opcional: Cambiar el color del enlace */
+}
 a:hover {
     color: #fff;
     background-color: #1e1e1e;

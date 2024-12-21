@@ -1,6 +1,11 @@
 class BolsillosApp {
     constructor() {
-
+        //comprobar si el usuario esta logeado
+        if (!localStorage.getItem('usuarioLogueado')) {
+            alert('Debes estar logeado para poder ver tus bolsillos');
+            window.location.href = 'login.html';
+            return
+        }
         this.currentPocket = null;
         this.usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
         this.usuario = JSON.parse(localStorage.getItem("usuarioLogueado")) || {};
@@ -25,6 +30,8 @@ class BolsillosApp {
 
         // Evento para agregar monto al bolsillo
         document.getElementById("add-amount-btn").addEventListener("click", () => this.agregarMonto());
+        // Evento para quitar monto del bolsillo
+        document.getElementById("remove-amount-btn").addEventListener("click", () => this.quitarMonto());
     }
 
 
@@ -42,7 +49,7 @@ class BolsillosApp {
             const newPocket = { name, total, current: 0 };
             this.pockets.push(newPocket);
             this.objUser['bolsillos'] = this.pockets;
-            let index =this.usuarios.findIndex((u) => u.email === this.usuario.email);
+            let index = this.usuarios.findIndex((u) => u.email === this.usuario.email);
             this.usuarios[index] = this.objUser;
             localStorage.setItem("usuarios", JSON.stringify(this.usuarios));
             this.renderBolsillos();
@@ -87,7 +94,31 @@ class BolsillosApp {
                 pocket.current = pocket.total;
                 alert("🎉 ¡Bolsillo completado!");
             }
-            let index =this.usuarios.findIndex((u) => u.email === this.usuario.email);
+            let index = this.usuarios.findIndex((u) => u.email === this.usuario.email);
+            this.objUser.bolsillos[this.currentPocket] = pocket;
+            this.usuarios[index] = this.objUser;
+            localStorage.setItem("usuarios", JSON.stringify(this.usuarios));
+            this.renderBolsillos();
+            this.mostrarDetallesBolsillos(this.currentPocket);
+        } else {
+            alert("Ingresa un monto válido.");
+        }
+    }
+
+    quitarMonto() {
+        const amount = parseFloat(prompt("¿Cuánto quieres quitar?"));
+
+        if (!isNaN(amount) && amount > 0) {
+            const pocket = this.pockets[this.currentPocket];
+
+            if (amount > pocket.current) {
+                alert("El monto a quitar no puede ser mayor al monto actual del bolsillo.");
+                return;
+            }
+
+            pocket.current -= amount;
+
+            let index = this.usuarios.findIndex((u) => u.email === this.usuario.email);
             this.objUser.bolsillos[this.currentPocket] = pocket;
             this.usuarios[index] = this.objUser;
             localStorage.setItem("usuarios", JSON.stringify(this.usuarios));
@@ -98,5 +129,5 @@ class BolsillosApp {
         }
     }
 }
-    new BolsillosApp();
+new BolsillosApp();
 

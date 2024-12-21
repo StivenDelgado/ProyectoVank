@@ -7,6 +7,6 @@ document.addEventListener("DOMContentLoaded", () =>{
 
     if(usuario){
         //muestra el saludo con el nombre
-        saludo.textContent=`Hola, ${usuario}`;
+        saludo.innerHTML = `Hola, <strong>${usuario}</strong>. <br> Tu saldo es de <span style="color: green;">2.500.000 COP</span>.`;
     }
 });

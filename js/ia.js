@@ -1,5 +1,12 @@
 class ChatBot {
   constructor() {
+    //comprobar si el usuario esta logeado
+    if (!localStorage.getItem('usuarioLogueado')) {
+      alert('Debes estar logeado para poder chatear con el bot');
+      window.location.href = 'login.html';
+      return
+    }
+
     this.chatBox = document.querySelector('.chat-box');
     this.chatInput = document.querySelector('.chat-input');
     this.messageUser = document.querySelector('.user-message');
@@ -7,11 +14,6 @@ class ChatBot {
     this.users = JSON.parse(localStorage.getItem('usuarios'));
     this.user = this.users.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email);
     this.bolsillos = this.user.bolsillos;
-    //comprobar si el usuario esta logeado
-    if (!localStorage.getItem('usuarioLogueado')) {
-      alert('Debes estar logeado para poder chatear con el bot');
-      window.location.href = 'login.html';
-    }
 
     //Enter en el teclado
     this.chatInput.addEventListener("keydown", (event) => {

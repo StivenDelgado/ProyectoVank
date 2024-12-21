@@ -1,46 +1,80 @@
-class Movimiento {
-    constructor(descripcion, monto) {
-        this.descripcion = descripcion;
-        this.monto = monto;
+class MovimientosApp {
+    constructor(containerId, searchBarId) {
+        //comprobar si el usuario esta logeado
+        if (!localStorage.getItem('usuarioLogueado')) {
+            alert('Debes estar logeado para poder ver tus movimientos');
+            window.location.href = 'login.html';
+            return
+        }
+        this.container = document.getElementById(containerId);
+        this.searchBar = document.getElementById(searchBarId);
+        this.users = JSON.parse(localStorage.getItem('usuarios'));
+        this.user = this.users.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email);
+        this.movimientos = this.cargarMovimientos();
+
+        // Evento para filtrar movimientos
+        this.searchBar.addEventListener("input", (e) => {
+            this.render(e.target.value);
+        });
+
+        this.render();
     }
 
-    esPositivo() {
-        return this.monto >= 0;
+    cargarMovimientos() {
+        // Carga los movimientos desde localStorage o usa valores iniciales
+        const movimientosData = this.user.transacciones || [];
+        return movimientosData;
     }
 
-    getMontoFormateado() {
-        return `$${Math.abs(this.monto).toLocaleString()}.00`;
+    guardarMovimientos() {
+        localStorage.setItem("movimientos", JSON.stringify(this.movimientos));
     }
-}
 
-class DiaMovimientos {
-    constructor(dia, transacciones) {
-        this.dia = dia;
-        this.transacciones = transacciones.map(
-            (transaccion) => new Movimiento(transaccion.descripcion, transaccion.monto)
+    agruparPorFecha(movimientos) {
+        return movimientos.reduce((acumulador, movimiento) => {
+            if (!acumulador[movimiento.fecha]) {
+                acumulador[movimiento.fecha] = [];
+            }
+            acumulador[movimiento.fecha].push(movimiento);
+            return acumulador;
+        }, {});
+    }
+
+    render(filter = "") {
+        this.container.innerHTML = "";
+
+        const movimientosFiltrados = this.movimientos.filter((movimiento) =>
+            movimiento.mensaje.toLowerCase().includes(filter.toLowerCase())
         );
+
+        const movimientosPorFecha = this.agruparPorFecha(movimientosFiltrados);
+
+        Object.keys(movimientosPorFecha).forEach((fecha) => {
+            const diaDiv = this.crearDiaMovimientos(fecha, movimientosPorFecha[fecha]);
+            this.container.appendChild(diaDiv);
+        });
     }
 
-    render() {
+    crearDiaMovimientos(fecha, transacciones) {
         const diaDiv = document.createElement("div");
         diaDiv.classList.add("movimientos-dia");
 
         const diaTitulo = document.createElement("h3");
-        diaTitulo.textContent = this.dia;
+        diaTitulo.textContent = fecha;
         diaDiv.appendChild(diaTitulo);
 
-        this.transacciones.forEach((movimiento) => {
+        transacciones.forEach((movimiento) => {
             const movimientoDiv = document.createElement("div");
             movimientoDiv.classList.add("movimiento");
 
             const descripcionSpan = document.createElement("span");
             descripcionSpan.classList.add("movimiento-descripcion");
-            descripcionSpan.textContent = movimiento.descripcion;
+            descripcionSpan.textContent = `${movimiento.mensaje} (${movimiento.numeroCuenta})`;
 
             const montoSpan = document.createElement("span");
             montoSpan.classList.add("movimiento-monto");
-            montoSpan.classList.add(movimiento.esPositivo() ? "positivo" : "negativo");
-            montoSpan.textContent = movimiento.getMontoFormateado();
+            montoSpan.classList.add(movimiento.monto >= 0 ? "positivo" : "negativo");
+            montoSpan.textContent = `$${Math.abs(movimiento.monto).toLocaleString()}.00`;
 
             movimientoDiv.appendChild(descripcionSpan);
             movimientoDiv.appendChild(montoSpan);
@@ -51,71 +85,6 @@ class DiaMovimientos {
     }
 }
 
-class MovimientosApp {
-    constructor(movimientos) {
-        this.movimientos = movimientos.map(
-            (dia) => new DiaMovimientos(dia.dia, dia.transacciones)
-        );
-    }
+// Inicializar la aplicación
+const app = new MovimientosApp("movimientos-container", "search-bar");
 
-    render() {
-        const movimientosContainer = document.getElementById("movimientos-container");
-        movimientosContainer.innerHTML = "";
-
-        this.movimientos.forEach((diaMovimientos) => {
-            movimientosContainer.appendChild(diaMovimientos.render());
-        });
-    }
-
-    buscarMovimientos(query) {
-        const movimientosContainer = document.getElementById("movimientos-container");
-        movimientosContainer.innerHTML = "";
-
-        this.movimientos.forEach((diaMovimientos) => {
-            const diaDiv = diaMovimientos.render();
-
-            const transaccionesFiltradas = diaMovimientos.transacciones.filter(
-                (movimiento) =>
-                    movimiento.descripcion.toLowerCase().includes(query.toLowerCase())
-            );
-
-            if (transaccionesFiltradas.length > 0) {
-                movimientosContainer.appendChild(diaDiv);
-            }
-        });
-    }
-}
-
-// Datos iniciales
-const movimientosData = [
-    {
-        dia: "Sábado",
-        transacciones: [
-            { descripcion: "Daniela Buitrago Guti...", monto: -20000 },
-            { descripcion: "Daniela Buitrago Guti...", monto: 20000 },
-            { descripcion: "Daniela Buitrago Guti...", monto: -20000 },
-            { descripcion: "Daniela Buitrago Guti...", monto: 20000 },
-            { descripcion: "Daniela Buitrago Guti...", monto: 20000 },
-            { descripcion: "Daniela Buitrago Guti...", monto: 20000 },
-            { descripcion: "Daniela Buitrago Guti...", monto: 20000 },
-
-        ],
-    },
-    {
-        dia: "7 de Diciembre de 2024",
-        transacciones: [
-            { descripcion: "Manuel Fernando Buit...", monto: -11000 },
-            { descripcion: "Manuel Fernando Buit...", monto: 11000 },
-        ],
-    },
-];
-
-// Inicialización de la app
-const app = new MovimientosApp(movimientosData);
-app.render();
-
-// Agregar funcionalidad al buscador
-document.getElementById("search-bar").addEventListener("input", (e) => {
-    const query = e.target.value;
-    app.buscarMovimientos(query);
-});
