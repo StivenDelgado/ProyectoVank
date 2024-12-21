@@ -1,17 +1,25 @@
-class Transaccion{
-    constructor(){
+class Transaccion {
+    constructor() {
+        //comprobar si el usuario esta logeado
+        if (!localStorage.getItem('usuarioLogueado')) {
+            alert('Debes estar logeado para poder ver tus transacciones');
+            window.location.href = 'login.html';
+            return
+        }
         this.enviarForm = document.getElementById("enviar-form");
         this.btnCancelar = document.getElementById("cancelar");
         this.messageDiv = document.getElementById("message");
 
+        this.users = JSON.parse(localStorage.getItem('usuarios'));
+        this.user = this.users.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email);
         //Cargar transacciones desde localStorage
-        this.transacciones = JSON.parse(localStorage.getItem("transacciones")) || [];
+        this.transacciones = this.user.transacciones || [];
 
         //Inicializar eventos
         this.initEvents();
     }
 
-    initEvents(){
+    initEvents() {
         //Manejo de formulario
         this.enviarForm.addEventListener("submit", (e) => this.agregarTransacciones(e));
 
@@ -19,7 +27,7 @@ class Transaccion{
         this.btnCancelar.addEventListener("click", (e) => this.limpiarFormulario());
     }
 
-    agregarTransacciones(e){
+    agregarTransacciones(e) {
         e.preventDefault();
 
         //Obtener datos del formulario
@@ -27,7 +35,7 @@ class Transaccion{
         const monto = parseFloat(document.getElementById("monto").value);
         const mensaje = document.getElementById("mensaje").value;
 
-        if(numeroCuenta && monto > 0){
+        if (numeroCuenta && monto > 0) {
             //crear nueva transacción
             const nuevaTransaccion = {
                 id: this.transacciones.length + 1,
@@ -39,32 +47,33 @@ class Transaccion{
 
             //Guardar en la lista local
             this.transacciones.push(nuevaTransaccion);
-
+            let index = this.users.findIndex(e => e.email === this.user.email);
+            this.users[index].transacciones = this.transacciones;
             //Guardar en localStorage
-            localStorage.setItem("transacciones", JSON.stringify(this.transacciones));
+            localStorage.setItem("usuarios", JSON.stringify(this.users));
 
             this.mostrarMensaje("Transacción exitosa", "success");
 
             //Limpiar formulario
             this.enviarForm.reset();
-        }else{
-            this.mostrarMensaje("Por favor complete todos los campos correctamente", "error");        
+        } else {
+            this.mostrarMensaje("Por favor complete todos los campos correctamente", "error");
         }
     }
 
-    limpiarFormulario(e) {
+    limpiarFormulario() {
         this.enviarForm.reset();  // Limpiar los campos del formulario
     }
 
-    mostrarMensaje(texto, tipo){
+    mostrarMensaje(texto, tipo) {
         const tiposClases = {
-            success: "mensaje-exito", 
-            error: "mensaje-error", 
+            success: "mensaje-exito",
+            error: "mensaje-error",
         };
         // Aplicar texto y clase
         this.messageDiv.textContent = texto;
         this.messageDiv.className = tiposClases[tipo] || "mensaje-default";
-      
+
         // Ocultar el mensaje después de 3 segundos
         setTimeout(() => {
             this.messageDiv.textContent = "";
