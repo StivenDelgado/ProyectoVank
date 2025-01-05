@@ -24,7 +24,7 @@ class ChatBot {
     // persistencia de mensajes
     this.mensajes = JSON.parse(localStorage.getItem('usuarios'))?.find(e => e.email === JSON.parse(localStorage.getItem('usuarioLogueado')).email).mensajes;
     this.mensajes.forEach(mensaje => {
-      this.chatBox.appendChild(this.createMessage(mensaje.mensaje, mensaje.rol === 'bot' ? 'bot-message' : 'user-message'));
+      this.chatBox.appendChild(this.createMessage(mensaje.mensaje, mensaje.rol === 'bot' ? 'bot-message' : 'user-message', 'reload'));
     });
 
     this.scrollToBottom()
@@ -58,14 +58,31 @@ class ChatBot {
     this.scrollToBottom()
   }
 
-  createMessage(message, type) {
+  createMessage(message, type, reload) {
     const messageElement = document.createElement('div');
     messageElement.classList.add('message');
     messageElement.classList.add(type);
-    messageElement.innerHTML = message;
+    this.chatBox.appendChild(messageElement);
+
+    if (type === 'user-message' || reload === 'reload') {
+      messageElement.innerHTML = message;
+      return messageElement;
+    }
+
+    let index = 0;
+    const words = message.split(" ");
+    const interval = setInterval(() => {
+        if (index < words.length) {
+            messageElement.innerHTML += (index > 0 ? " " : "") + words[index];
+            index++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 150);
 
     return messageElement;
-  }
+}
+
 
   async chatBot(prompt) {
     const API_KEY = 'AIzaSyAB9sO0o40p65-3cuw8skZo7jamZW-cm9s';
